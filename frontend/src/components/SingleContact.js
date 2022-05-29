@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
@@ -14,6 +14,7 @@ const SingleContact = ({
   fetchData,
 }) => {
   const [state, dispatch] = useStateValue();
+  const inputRef = useRef();
   const handleClick = async (_id) => {
     const deleteConct = {};
     deleteConct[_id] = 1;
@@ -32,11 +33,20 @@ const SingleContact = ({
     console.log(response);
   };
 
+  useEffect(() => {
+    if (state.isChecked) {
+      inputRef.current.checked = true;
+    } else if (Object.keys(state.mark).length === 0) {
+      inputRef.current.checked = false;
+    }
+  });
+
   return (
     <tr>
       <td>
         <input
           type="checkbox"
+          ref={inputRef}
           onClick={() =>
             dispatch({ type: actionType.ADD_MARK, payload: { id: _id } })
           }
@@ -55,7 +65,7 @@ const SingleContact = ({
             handleClick(_id);
           }}
         >
-          D
+          Delete
         </button>
       </td>
     </tr>

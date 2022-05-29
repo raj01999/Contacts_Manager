@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [msg, setMsg] = useState(null);
+  const [wrongPass, setWrongPass] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      e.target.elements.reg_password.value !==
+      e.target.elements.c_reg_password.value
+    ) {
+      setTimeout(() => {
+        setWrongPass(false);
+      }, 5000);
+      return setWrongPass(true);
+    }
     const data = {
       email: e.target.elements.reg_email.value,
       password: e.target.elements.reg_password.value,
@@ -19,6 +30,11 @@ const Signup = () => {
     const response = await proRes.json();
     if (response.status === "sucess") {
       navigate("/");
+    } else {
+      setMsg(response.message);
+      setTimeout(() => {
+        setMsg(null);
+      }, 5000);
     }
 
     console.log(response);
@@ -26,6 +42,8 @@ const Signup = () => {
 
   return (
     <div>
+      {msg ? <div>{msg}</div> : ""}
+      {wrongPass ? <div>Password does't match</div> : ""}
       <form action="" onSubmit={handleSubmit}>
         <div>
           email: <input type="email" id="reg_email" required />

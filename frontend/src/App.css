@@ -1,21 +1,89 @@
-body {
-  background-color: papayawhip;
-}
-
-.home-h {
-  text-align: center;
-  margin: 1rem;
+* {
+  margin: 0;
+  box-sizing: border-box;
 }
 
 table {
-  border-collapse: separate;
-  border: 1.5px solid black;
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: calc(100% - 15px);
   margin: auto;
 }
 
-th,
-td {
-  border: 1.5px solid black;
-  text-align: center;
-  min-height: 1.5rem;
+td,
+th {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: skyblue;
+  font-weight: normal;
+}
+
+header {
+  height: 4rem;
+  background-color: gainsboro;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-ul {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter > div > button {
+  margin: 10px;
+}
+
+.hero {
+  width: 85%;
+}
+
+.mainpage {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar {
+  width: 15%;
+  height: calc(100vh - 4rem);
+  background-color: rgb(194, 233, 249);
+}
+
+.popup {
+  width: 13rem;
+  height: 9rem;
+  background-color: paleturquoise;
+  position: absolute;
+  top: 40vh;
+  left: 40%;
+}
+
+.popup > label {
+  height: 100%;
+  min-width: 100%;
+  max-width: 100%;
 }

@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStateValue } from "../context/StateProvider";
 import SingleContact from "./SingleContact";
 import { actionType } from "../context/reducer";
+import Aside from "./Aside";
 import { useNavigate } from "react-router-dom";
+import Popup from "./Popup";
 
 const AllContact = () => {
-  const [state, dispatch] = useStateValue();
   const navigate = useNavigate();
+  const [isPop, setIsPop] = useState();
+  const [state, dispatch] = useStateValue();
+  const inputRef = useRef();
 
   const fetchData = async () => {
     const jsonData = await fetch(process.env.REACT_APP_API + "/contact", {
@@ -23,13 +27,26 @@ const AllContact = () => {
         type: actionType.ADD_CONTACT,
         payload: { contact: data.data },
       });
+      dispatch({ type: actionType.SEARCH, payload: { key: "" } });
+    } else {
+      dispatch({ type: actionType.REMOVE_USER });
+      navigate("/");
     }
     // console.log(data.data);
   };
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (state.isChecked) {
+      inputRef.current.checked = true;
+    } else {
+      inputRef.current.checked = false;
+    }
+  });
 
   const handleClick = async () => {
     const getRes = await fetch(process.env.REACT_APP_API + "/contact", {
@@ -42,40 +59,63 @@ const AllContact = () => {
     });
 
     const response = await getRes.json();
+    dispatch({ type: actionType.REMOVE_MARK });
     fetchData();
     console.log(response);
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <button
-        style={{ position: "absolute", right: "40px", top: "-30px" }}
-        onClick={handleClick}
-      >
-        Delete
-      </button>
-      <table>
-        <thead>
-          <tr>
-            <td>
-              <input type="checkbox" onClick={() => {}} />
-            </td>
-            <th>Name</th>
-            <th>Designation</th>
-            <th>Company</th>
-            <th>Industry</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Country</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {state.contact.map((obj) => (
-            <SingleContact key={obj._id} {...obj} fetchData={fetchData} />
-          ))}
-        </tbody>
-      </table>
+    <div className="mainpage">
+      <Aside />
+      <section className="hero">
+        <div className="filter">
+          <div>
+            <button>Select Data</button>
+            <button>Filter</button>
+          </div>
+          <div>
+            <button onClick={handleClick}>Delete</button>
+            <button
+              onClick={() => {
+                setIsPop(!isPop);
+              }}
+            >
+              Import
+            </button>
+            <button>Export</button>
+          </div>
+        </div>
+        {isPop ? <Popup fetchData={fetchData} setIsPop={setIsPop} /> : ""}
+
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input
+                  type="checkbox"
+                  ref={inputRef}
+                  onClick={() => {
+                    dispatch({ type: actionType.CHECKED });
+                  }}
+                />
+              </th>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>Company</th>
+              <th>Industry</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Country</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {state.filter.map((obj) => (
+              <SingleContact key={obj._id} {...obj} fetchData={fetchData} />
+            ))}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 };

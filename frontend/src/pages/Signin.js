@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const [msg, setMsg] = useState(null);
+  // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
 
   const handleSubmit = async (e) => {
@@ -21,15 +23,37 @@ const Signin = () => {
     });
     const response = await proRes.json();
     if (response.status === "sucess") {
-      dispatch({ type: actionType.ADD_USER, payload: { user: response } });
+      dispatch({ type: actionType.ADD_USER, payload: { user: response.user } });
+      navigate("/contact");
+    } else {
+      setMsg(response.message);
+      setTimeout(() => {
+        setMsg(null);
+      }, 5000);
+    }
+  };
+
+  const refreshUser = async () => {
+    const jsonData = await fetch(process.env.REACT_APP_API + "/user/signin", {
+      method: "GET",
+      headers: {
+        authorization: state.user.token,
+      },
+    });
+
+    const data = await jsonData.json();
+    if (data.status == "sucess") {
       navigate("/contact");
     }
-
-    console.log(response);
   };
+
+  useEffect(() => {
+    refreshUser();
+  }, []);
 
   return (
     <div>
+      {msg ? <div>{msg}</div> : ""}
       <form action="" onSubmit={handleSubmit}>
         <div>
           email: <input type="email" id="log_email" required />

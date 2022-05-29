@@ -7,7 +7,9 @@ const getUser = () => {
 const initialState = {
   user: getUser(),
   contact: [],
+  filter: [],
   mark: {},
+  isChecked: false,
 };
 
 export default initialState;

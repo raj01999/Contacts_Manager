@@ -6,6 +6,34 @@ const jwt = require("jsonwebtoken");
 
 const router = new express.Router();
 
+const authenticateToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  try {
+    if (!token) {
+      return res.status(401).json({
+        status: "failed",
+        message: "No user",
+      });
+    }
+
+    jwt.verify(token, process.env.SECRET_KEY, async (err, jwtObj) => {
+      if (err) {
+        return res.status(403).json({
+          status: "failed",
+          message: "Invalid User",
+        });
+      }
+      req.user = jwtObj._doc;
+      next();
+    });
+  } catch (e) {
+    res.status(500).json({
+      status: "failed",
+      message: e.message,
+    });
+  }
+};
+
 // sign up route
 router.post("/user/signup", async (req, res) => {
   try {
@@ -57,11 +85,16 @@ router.post("/user/signin", async (req, res) => {
 
   res.status(200).json({
     status: "sucess",
-    email: logUser[0].email,
-    token,
+    user: {
+      email: logUser[0].email,
+      token,
+    },
   });
-
-  console.log(isValid);
 });
 
+router.get("/user/signin", authenticateToken, (req, res) => {
+  res.json({
+    status: "sucess",
+  });
+});
 module.exports = router;
