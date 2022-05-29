@@ -4,6 +4,7 @@ import { useStateValue } from "../context/StateProvider";
 // import fs from "fs";
 
 const Popup = ({ fetchData, setIsPop }) => {
+  // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
 
   const handleChange = async (file) => {

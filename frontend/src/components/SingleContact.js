@@ -43,7 +43,7 @@ const SingleContact = ({
 
   return (
     <tr>
-      <td>
+      <td className="checkboxs">
         <input
           type="checkbox"
           ref={inputRef}
@@ -52,14 +52,14 @@ const SingleContact = ({
           }
         />
       </td>
-      <td>{name}</td>
-      <td>{designation}</td>
-      <td>{company}</td>
-      <td>{industry}</td>
-      <td>{email}</td>
-      <td>{phNo}</td>
-      <td>{country}</td>
-      <td>
+      <td className="name">{name}</td>
+      <td className="designation">{designation}</td>
+      <td className="company">{company}</td>
+      <td className="industry">{industry}</td>
+      <td className="email">{email}</td>
+      <td className="phoneNumber">{phNo}</td>
+      <td className="country">{country}</td>
+      <td className="action">
         <button
           onClick={() => {
             handleClick(_id);

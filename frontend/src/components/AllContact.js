@@ -90,7 +90,7 @@ const AllContact = () => {
         <table>
           <thead>
             <tr>
-              <th>
+              <th className="checkboxs">
                 <input
                   type="checkbox"
                   ref={inputRef}
@@ -99,14 +99,14 @@ const AllContact = () => {
                   }}
                 />
               </th>
-              <th>Name</th>
-              <th>Designation</th>
-              <th>Company</th>
-              <th>Industry</th>
-              <th>Email</th>
-              <th>Phone Number</th>
-              <th>Country</th>
-              <th>Action</th>
+              <th className="name">Name</th>
+              <th className="designation">Designation</th>
+              <th className="company">Company</th>
+              <th className="industry">Industry</th>
+              <th className="email">Email</th>
+              <th className="phoneNumber">Phone Number</th>
+              <th className="country">Country</th>
+              <th className="action">Action</th>
             </tr>
           </thead>
           <tbody>
