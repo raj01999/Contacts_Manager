@@ -79,7 +79,12 @@ router.post(
     const location = path.join(__dirname, "../../multer/uploads/abc.csv");
     const fileData = fs.readFileSync(location, "utf-8");
     const arr = fileData.split("\n");
-    for (let i = 1; i < arr.length; i++) {
+    let n = arr.length;
+    if (arr.length >= 10) {
+      n = 10;
+    }
+
+    for (let i = 1; i <= n; i++) {
       const newArr = arr[i].split(",");
       newArr[newArr.length - 1] = newArr[newArr.length - 1].trim();
       const newContact = new Contact({
