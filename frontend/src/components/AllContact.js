@@ -2,14 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { useStateValue } from "../context/StateProvider";
 import SingleContact from "./SingleContact";
 import { actionType } from "../context/reducer";
-import Aside from "./Aside";
 import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
+import selectDate from "../utils/selectDate.svg";
+import deleteP from "../utils/delete.svg";
+import importP from "../utils/import.svg";
+import exportP from "../utils/export.svg";
+import { motion } from "framer-motion";
+import Confirm from "./Confirm";
+import SucessDelete from "./SuccessDelete";
+import SuccessUpload from "./SuccessUpload";
 
 const AllContact = () => {
   const navigate = useNavigate();
-  const [isPop, setIsPop] = useState();
+  const [isPop, setIsPop] = useState(false);
+  const [conf, setConf] = useState(false);
+  const [sucDel, setSucDel] = useState(false);
   const [state, dispatch] = useStateValue();
+  const [successUp, setSuccessUp] = useState(false);
   const inputRef = useRef();
 
   const fetchData = async () => {
@@ -48,7 +58,7 @@ const AllContact = () => {
     }
   });
 
-  const handleClick = async () => {
+  const handleDelete = async () => {
     const getRes = await fetch(process.env.REACT_APP_API + "/contact", {
       method: "DELETE",
       headers: {
@@ -61,6 +71,15 @@ const AllContact = () => {
     const response = await getRes.json();
     dispatch({ type: actionType.REMOVE_MARK });
     fetchData();
+    setConf(false);
+
+    if (Object.keys(response.data).length) {
+      setSucDel(true);
+      setTimeout(() => {
+        setSucDel(false);
+      }, 2000);
+    }
+
     console.log(response);
   };
 
@@ -68,23 +87,43 @@ const AllContact = () => {
     <div className="mainpage">
       <section className="hero">
         <div className="filter">
+          <img src={selectDate} alt="selectDate" />
+
           <div>
-            <button>Select Data</button>
-            <button>Filter</button>
-          </div>
-          <div>
-            <button onClick={handleClick}>Delete</button>
-            <button
+            <motion.img
+              whileTap={{ scale: 0.75 }}
+              src={deleteP}
+              alt="delete"
+              onClick={() => {
+                setConf(!conf);
+              }}
+            />
+
+            <motion.img
+              whileTap={{ scale: 0.75 }}
+              src={importP}
+              alt="import"
               onClick={() => {
                 setIsPop(!isPop);
               }}
-            >
-              Import
-            </button>
-            <button>Export</button>
+            />
+
+            <motion.img whileTap={{ scale: 0.75 }} src={exportP} alt="export" />
           </div>
         </div>
-        {isPop ? <Popup fetchData={fetchData} setIsPop={setIsPop} /> : ""}
+
+        {successUp ? <SuccessUpload /> : ""}
+        {sucDel ? <SucessDelete /> : ""}
+        {conf ? <Confirm setConf={setConf} handleDelete={handleDelete} /> : ""}
+        {isPop ? (
+          <Popup
+            fetchData={fetchData}
+            setIsPop={setIsPop}
+            setSuccessUp={setSuccessUp}
+          />
+        ) : (
+          ""
+        )}
 
         <table>
           <thead>
@@ -110,7 +149,12 @@ const AllContact = () => {
           </thead>
           <tbody>
             {state.filter.map((obj) => (
-              <SingleContact key={obj._id} {...obj} fetchData={fetchData} />
+              <SingleContact
+                key={obj._id}
+                {...obj}
+                fetchData={fetchData}
+                setSucDel={setSucDel}
+              />
             ))}
           </tbody>
         </table>

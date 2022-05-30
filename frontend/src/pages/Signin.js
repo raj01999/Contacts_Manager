@@ -8,6 +8,7 @@ import dot from "../utils/dot.svg";
 import bigCircleL from "../utils/bigCircleL.svg";
 import bigCircleR from "../utils/bigCircleR.svg";
 import eye from "../utils/eye.svg";
+import { motion } from "framer-motion";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -103,9 +104,13 @@ const Signin = () => {
             onClick={showPassword}
             className="signineye"
           />
-          <button type="submit" className="btn">
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className="btn"
+          >
             Sign In
-          </button>
+          </motion.button>
           <Link to="/signup" className="linkLogin">
             Sign up
           </Link>

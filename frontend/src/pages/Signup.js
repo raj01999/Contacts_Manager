@@ -5,6 +5,7 @@ import dot from "../utils/dot.svg";
 import bigCircleL from "../utils/bigCircleL.svg";
 import bigCircleR from "../utils/bigCircleR.svg";
 import eye from "../utils/eye.svg";
+import { motion } from "framer-motion";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Signup = () => {
     <section className="loginContainer">
       <img src={bigCircleL} alt="bigCircle" className="bigCircle left" />
       <div className="mainLogIn">
-        {msg ? <div className="alert">{msg}</div> : ""}
+        {msg ? <Alert msg={msg} /> : ""}
         {wrongPass ? <div className="alert">Password does't match</div> : ""}
         <img src={dot} alt="dotLeft" className="dotLeft" />
 
@@ -95,9 +96,13 @@ const Signup = () => {
             onClick={showPassword}
             className="signupeye"
           />
-          <button type="submit" className="btn">
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className="btn"
+          >
             Sign Up
-          </button>
+          </motion.button>
         </form>
 
         <img src={dot} alt="dotRight" className="dotRight" />

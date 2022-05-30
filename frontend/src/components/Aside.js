@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import dashbord from "../utils/dashbord.svg";
 import totalContact from "../utils/totalContact.svg";
 import signOut from "../utils/signOut.svg";
+import { motion } from "framer-motion";
 
 const Aside = () => {
   // eslint-disable-next-line
@@ -18,14 +19,27 @@ const Aside = () => {
   return (
     <aside className="sidebar">
       <div className="sidetop">
-        <p className="asidelogo">Logo</p>
+        <motion.p whileTap={{ scale: 0.6 }} className="asidelogo">
+          Logo
+        </motion.p>
         <div>
-          <img src={dashbord} alt="dashbord" className="dashbord" />
-          <img src={totalContact} alt="totalContact" className="asideOpenimg" />
+          <motion.img
+            whileTap={{ scale: 0.6 }}
+            src={dashbord}
+            alt="dashbord"
+            className="dashbord"
+          />
+          <motion.img
+            whileTap={{ scale: 0.6 }}
+            src={totalContact}
+            alt="totalContact"
+            className="asideOpenimg"
+          />
         </div>
       </div>
 
-      <img
+      <motion.img
+        whileTap={{ scale: 0.9 }}
         src={signOut}
         alt="signOut"
         onClick={handleClick}

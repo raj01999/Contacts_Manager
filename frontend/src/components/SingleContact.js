@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import singleDelete from "../utils/singleDelete.png";
+import { motion } from "framer-motion";
 
 const SingleContact = ({
   _id,
@@ -12,6 +14,7 @@ const SingleContact = ({
   phNo,
   country,
   fetchData,
+  setSucDel,
 }) => {
   const [state, dispatch] = useStateValue();
   const inputRef = useRef();
@@ -30,6 +33,12 @@ const SingleContact = ({
 
     const response = await getRes.json();
     fetchData();
+    if (response.status === "sucess") {
+      setSucDel(true);
+      setTimeout(() => {
+        setSucDel(false);
+      }, 2000);
+    }
     console.log(response);
   };
 
@@ -60,13 +69,14 @@ const SingleContact = ({
       <td className="phoneNumber">{phNo}</td>
       <td className="country">{country}</td>
       <td className="action">
-        <button
+        <motion.img
+          whileTap={{ scale: 0.8 }}
+          src={singleDelete}
+          alt="Delete"
           onClick={() => {
             handleClick(_id);
           }}
-        >
-          Delete
-        </button>
+        />
       </td>
     </tr>
   );

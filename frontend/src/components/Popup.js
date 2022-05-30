@@ -3,7 +3,7 @@ import { FileUploader } from "react-drag-drop-files";
 import { useStateValue } from "../context/StateProvider";
 // import fs from "fs";
 
-const Popup = ({ fetchData, setIsPop }) => {
+const Popup = ({ fetchData, setIsPop, setSuccessUp }) => {
   // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
 
@@ -20,6 +20,12 @@ const Popup = ({ fetchData, setIsPop }) => {
 
     const response = await jsonData.json();
     fetchData();
+    if (response.status === "sucess") {
+      setSuccessUp(true);
+      setTimeout(() => {
+        setSuccessUp(false);
+      }, 3000);
+    }
     setIsPop(false);
     console.log(response);
   };

@@ -15,6 +15,7 @@ table {
   display: block;
   height: calc(100vh - 4rem - 65px);
   overflow-y: auto;
+  border-radius: 10px;
 }
 
 td,
@@ -41,44 +42,45 @@ th {
 }
 
 .checkboxs {
-  width: 1%;
+  width: 2.5%;
+  text-align: center;
 }
 
 .name {
-  width: 14%;
+  width: 13.57%;
 }
 
 .designation {
-  width: 14%;
+  width: 13.57%;
 }
 
 .company {
-  width: 14%;
+  width: 13.57%;
 }
 
 .industry {
-  width: 14%;
+  width: 13.57%;
 }
 
 .email {
-  width: 14%;
+  width: 13.57%;
 }
 
 .phoneNumber {
-  width: 14%;
+  width: 13.57%;
 }
 
 .country {
-  width: 14%;
+  width: 13.57%;
 }
 
 .action {
-  width: 5%;
+  width: 2.5%;
+  text-align: center;
 }
 
-.action > button {
-  width: 100%;
-  height: 100%;
+.action > img {
+  width: 15px;
   cursor: pointer;
 }
 
@@ -95,7 +97,7 @@ header {
   display: flex;
   width: 97%;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   list-style: none;
 }
 
@@ -105,6 +107,7 @@ header {
   font-size: 1.5rem;
   color: #454545;
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .searchBox {
@@ -117,17 +120,67 @@ header {
   outline: none;
 }
 
+.userField {
+  display: flex;
+  cursor: pointer;
+}
+
+.userField > img {
+  width: 2.2rem;
+  margin-right: 5px;
+}
+
+.userField > div {
+  height: 2.2 rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.userField > div > p {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 550;
+  font-size: 14px;
+  color: #000000;
+  opacity: 0.9;
+}
+
+.userField > div > .userType {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
 .filter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: 65px;
+  flex-wrap: nowrap;
 }
 
-.filter > div > button {
-  margin: 10px;
+.filter > img {
+  height: 100%;
+  cursor: pointer;
+}
+
+.filter > div {
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.filter > div > img {
+  height: 100%;
+  cursor: pointer;
 }
 
 .hero {
-  width: 100%;
+  position: relative;
+  width: 98%;
+  margin: auto;
+  border-radius: 15px;
 }
 
 .mainpage {
@@ -139,16 +192,64 @@ header {
 .popup {
   width: 13rem;
   height: 9rem;
-  background-color: paleturquoise;
+  background-color: rgb(183, 243, 236);
   position: absolute;
-  top: 40vh;
-  left: 40%;
+  top: calc(50% - 4.5rem);
+  left: calc(50% - 6.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.popdiv {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.btnCan {
+  width: 100px;
+  height: 30px;
+  background: #2da5fc;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btnOk {
+  color: #1f2633;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-size: 1.2rem;
+}
+
+.popup > img {
+  width: 87%;
+}
+
+#successUpload {
+  width: 60%;
 }
 
 .popup > label {
   height: 100%;
   min-width: 100%;
   max-width: 100%;
+  background-image: url(./utils/uploads.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+}
+
+.popup > label > svg {
+  width: 0;
 }
 
 .alert {
@@ -185,6 +286,7 @@ header {
 }
 
 .asidelogo {
+  cursor: pointer;
   font-family: "Titillium Web";
   font-style: normal;
   font-weight: 600;
