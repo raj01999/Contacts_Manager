@@ -98,14 +98,15 @@ const Signin = () => {
             required
             ref={passRef}
           />
-          <img
+          <motion.img
+            whileTap={{ scale: 0.9 }}
             src={eye}
             alt="eye"
             onClick={showPassword}
             className="signineye"
           />
           <motion.button
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.9 }}
             type="submit"
             className="btn"
           >

@@ -90,7 +90,8 @@ const Signup = () => {
             className="inputauth"
             required
           />
-          <img
+          <motion.img
+            whileTap={{ scale: 0.9 }}
             src={eye}
             alt="eye"
             onClick={showPassword}
