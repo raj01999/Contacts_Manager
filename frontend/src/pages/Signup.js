@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
+import dot from "../utils/dot.svg";
+import bigCircleL from "../utils/bigCircleL.svg";
+import bigCircleR from "../utils/bigCircleR.svg";
+import eye from "../utils/eye.svg";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [msg, setMsg] = useState(null);
+  const passRef = useRef();
   const [wrongPass, setWrongPass] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -14,7 +20,7 @@ const Signup = () => {
     ) {
       setTimeout(() => {
         setWrongPass(false);
-      }, 5000);
+      }, 2500);
       return setWrongPass(true);
     }
     const data = {
@@ -34,33 +40,70 @@ const Signup = () => {
       setMsg(response.message);
       setTimeout(() => {
         setMsg(null);
-      }, 5000);
+      }, 2500);
     }
 
     console.log(response);
   };
 
+  function showPassword(e) {
+    var x = passRef.current;
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
   return (
-    <div>
-      {msg ? <div>{msg}</div> : ""}
-      {wrongPass ? <div>Password does't match</div> : ""}
-      <form action="" onSubmit={handleSubmit}>
-        <div>
-          email: <input type="email" id="reg_email" required />
-        </div>
-        <div>
-          password:
-          <input type="password" id="reg_password" required />
-        </div>
-        <div>
-          confirm password :
-          <input type="password" id="c_reg_password" required />
-        </div>
-        <div>
-          <button type="submit">Sign Up</button>
-        </div>
-      </form>
-    </div>
+    <section className="loginContainer">
+      <img src={bigCircleL} alt="bigCircle" className="bigCircle left" />
+      <div className="mainLogIn">
+        {msg ? <div className="alert">{msg}</div> : ""}
+        {wrongPass ? <div className="alert">Password does't match</div> : ""}
+        <img src={dot} alt="dotLeft" className="dotLeft" />
+
+        <form action="" className="signForm" onSubmit={handleSubmit}>
+          <div className="logo">Logo</div>
+
+          <div className="detail">Create New Account</div>
+          <input
+            type="email"
+            placeholder="User Id"
+            id="reg_email"
+            className="inputauth"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            id="reg_password"
+            className="inputauth"
+            required
+            ref={passRef}
+          />
+          <input
+            type="password"
+            id="c_reg_password"
+            placeholder="Confirm Password"
+            className="inputauth"
+            required
+          />
+          <img
+            src={eye}
+            alt="eye"
+            onClick={showPassword}
+            className="signupeye"
+          />
+          <button type="submit" className="btn">
+            Sign Up
+          </button>
+        </form>
+
+        <img src={dot} alt="dotRight" className="dotRight" />
+      </div>
+      <img src={bigCircleR} alt="bigCircle" className="bigCircle right" />
+    </section>
   );
 };
 

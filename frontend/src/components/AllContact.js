@@ -66,7 +66,6 @@ const AllContact = () => {
 
   return (
     <div className="mainpage">
-      <Aside />
       <section className="hero">
         <div className="filter">
           <div>

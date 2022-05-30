@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header>
       <ul className="header-ul">
-        <li>Totoal Contact</li>
+        <li className="mainHead">Totoal Contact</li>
         <li>
           <input
             type="search"
