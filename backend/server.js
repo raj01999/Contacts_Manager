@@ -16,6 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", userRouter);
 app.use("/api", contactRouter);
 
-app.listen(8000, (err) => {
+app.listen(process.env.PORT || 8000, (err) => {
   console.log("Server is running");
 });
