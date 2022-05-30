@@ -91,7 +91,7 @@ const Signup = () => {
             required
           />
           <motion.img
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 0.95 }}
             src={eye}
             alt="eye"
             onClick={showPassword}

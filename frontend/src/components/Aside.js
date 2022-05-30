@@ -39,7 +39,7 @@ const Aside = () => {
       </div>
 
       <motion.img
-        whileTap={{ scale: 0.9 }}
+        whileTap={{ scale: 0.95 }}
         src={signOut}
         alt="signOut"
         onClick={handleClick}

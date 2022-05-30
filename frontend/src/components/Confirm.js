@@ -8,7 +8,7 @@ const Confirm = ({ setConf, handleDelete }) => {
       <img src={confirmDelete} alt="Confirm" />
       <div className="popdiv">
         <motion.button
-          whileTap={{ scale: 0.6 }}
+          whileTap={{ scale: 0.95 }}
           className="btnCan"
           onClick={() => {
             setConf(false);
@@ -17,7 +17,7 @@ const Confirm = ({ setConf, handleDelete }) => {
           Cancel
         </motion.button>
         <motion.button
-          whileTap={{ scale: 0.6 }}
+          whileTap={{ scale: 0.95 }}
           className="btnOk"
           onClick={handleDelete}
         >
