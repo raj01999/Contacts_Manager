@@ -1,6 +1,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 /* body {
@@ -87,14 +88,33 @@ header {
   background-color: gainsboro;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .header-ul {
   display: flex;
-  width: 95%;
+  width: 97%;
   justify-content: space-between;
+  flex-wrap: wrap;
   list-style: none;
+}
+
+.mainHead {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-size: 1.5rem;
+  color: #454545;
+  opacity: 0.8;
+}
+
+.searchBox {
+  width: 17rem;
+  height: 2.1rem;
+  background: #f2f2f2;
+  border-radius: 6px;
+  padding: 10px;
+  border: none;
+  outline: none;
 }
 
 .filter {
@@ -152,14 +172,14 @@ header {
 }
 
 .innerContainer {
-  width: calc(100% - 12rem);
+  width: calc(100% - 10rem);
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 12rem;
+  width: 10rem;
   height: 100%;
   background-color: rgb(194, 233, 249);
 }
@@ -209,29 +229,11 @@ header {
 }
 
 .dashbord {
-  width: 6rem;
+  width: 5.5rem;
   cursor: pointer;
 }
 
 .asideOpenimg {
-  width: 8.5rem;
+  width: 8rem;
   cursor: pointer;
 }
-
-/* 
-.signin {
-  width: 95%;
-  height: 100vh;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: red;
-}
-
-.signin > form {
-  display: flex;
-  height: 15rem;
-  flex-direction: column;
-  justify-content: space-around;
-} */

@@ -20,6 +20,7 @@ const Header = () => {
             type="search"
             placeholder="Search"
             value={key}
+            className="searchBox"
             onChange={handleChange}
           />
         </li>
