@@ -96,6 +96,7 @@ const AllContact = () => {
               alt="delete"
               onClick={() => {
                 setConf(!conf);
+                setIsPop(false);
               }}
             />
 
@@ -105,6 +106,7 @@ const AllContact = () => {
               alt="import"
               onClick={() => {
                 setIsPop(!isPop);
+                setConf(false);
               }}
             />
 
