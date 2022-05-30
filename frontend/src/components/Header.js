@@ -22,7 +22,7 @@ const Header = () => {
         <li>
           <input
             type="search"
-            placeholder="Search"
+            placeholder="Search by Email Id ....."
             value={key}
             className="searchBox"
             onChange={handleChange}

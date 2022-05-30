@@ -48,30 +48,37 @@ th {
 
 .name {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .designation {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .company {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .industry {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .email {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .phoneNumber {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .country {
   width: 13.57%;
+  word-break: break-word;
 }
 
 .action {
