@@ -79,7 +79,7 @@ router.post(
     const location = path.join(__dirname, "../../multer/uploads/abc.csv");
     const fileData = fs.readFileSync(location, "utf-8");
     const arr = fileData.split("\n");
-    let n = arr.length;
+    let n = arr.length - 1;
     if (arr.length >= 10) {
       n = 10;
     }
