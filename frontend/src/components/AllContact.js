@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import Confirm from "./Confirm";
 import SucessDelete from "./SuccessDelete";
 import SuccessUpload from "./SuccessUpload";
+import Footer from "./Footer";
 
 const AllContact = () => {
   const navigate = useNavigate();
@@ -160,6 +161,8 @@ const AllContact = () => {
             ))}
           </tbody>
         </table>
+
+        <Footer />
       </section>
     </div>
   );
