@@ -64,32 +64,42 @@ router.post("/user/signup", async (req, res) => {
 
 // sign in route
 router.post("/user/signin", async (req, res) => {
-  const logUser = await User.find({ email: req.body.email });
+  try {
+    const logUser = await User.find({ email: req.body.email });
 
-  if (logUser.length == 0) {
-    return res.status(404).json({
+    if (logUser.length == 0) {
+      return res.status(404).json({
+        status: "failed",
+        message: "User Not Registered",
+      });
+    }
+    const isValid = await bcrypt.compare(
+      req.body.password,
+      logUser[0].password
+    );
+
+    if (!isValid) {
+      return res.status(401).json({
+        status: "failed",
+        message: "Wrong Password",
+      });
+    }
+
+    var token = jwt.sign({ ...logUser[0] }, process.env.SECRET_KEY);
+
+    res.status(200).json({
+      status: "sucess",
+      user: {
+        email: logUser[0].email,
+        token,
+      },
+    });
+  } catch (e) {
+    res.status(500).json({
       status: "failed",
-      message: "User Not Registered",
+      message: e.message,
     });
   }
-  const isValid = await bcrypt.compare(req.body.password, logUser[0].password);
-
-  if (!isValid) {
-    return res.status(401).json({
-      status: "failed",
-      message: "Wrong Password",
-    });
-  }
-
-  var token = jwt.sign({ ...logUser[0] }, process.env.SECRET_KEY);
-
-  res.status(200).json({
-    status: "sucess",
-    user: {
-      email: logUser[0].email,
-      token,
-    },
-  });
 });
 
 router.get("/user/signin", authenticateToken, (req, res) => {

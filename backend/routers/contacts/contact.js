@@ -76,34 +76,41 @@ router.post(
   authenticateToken,
   upload.single("csv"),
   async (req, res) => {
-    const location = path.join(__dirname, "../../multer/uploads/abc.csv");
-    const fileData = fs.readFileSync(location, "utf-8");
-    const arr = fileData.split("\n");
-    let n = arr.length - 1;
-    if (arr.length >= 10) {
-      n = 10;
-    }
+    try {
+      const location = path.join(__dirname, "../../multer/uploads/abc.csv");
+      const fileData = fs.readFileSync(location, "utf-8");
+      const arr = fileData.split("\n");
+      let n = arr.length - 1;
+      if (arr.length >= 10) {
+        n = 10;
+      }
 
-    for (let i = 1; i <= n; i++) {
-      const newArr = arr[i].split(",");
-      newArr[newArr.length - 1] = newArr[newArr.length - 1].trim();
-      const newContact = new Contact({
-        name: newArr[0],
-        designation: newArr[1],
-        company: newArr[2],
-        industry: newArr[3],
-        email: newArr[4],
-        phNo: newArr[5],
-        country: newArr[6],
-        user: req.user._id,
+      for (let i = 1; i <= n; i++) {
+        const newArr = arr[i].split(",");
+        newArr[newArr.length - 1] = newArr[newArr.length - 1].trim();
+        const newContact = new Contact({
+          name: newArr[0],
+          designation: newArr[1],
+          company: newArr[2],
+          industry: newArr[3],
+          email: newArr[4],
+          phNo: newArr[5],
+          country: newArr[6],
+          user: req.user._id,
+        });
+        await newContact.save();
+      }
+      fs.unlinkSync(location);
+
+      res.json({
+        status: "sucess",
       });
-      await newContact.save();
+    } catch (e) {
+      res.status(500).json({
+        status: "failed",
+        message: e.message,
+      });
     }
-    fs.unlinkSync(location);
-
-    res.json({
-      status: "sucess",
-    });
   }
 );
 
