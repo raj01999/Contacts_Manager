@@ -115,6 +115,10 @@ th {
   right: 10px;
 }
 
+.emailHover > a {
+  text-decoration: none;
+}
+
 header {
   width: 100%;
   height: 4rem;

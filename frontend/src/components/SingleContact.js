@@ -74,7 +74,18 @@ const SingleContact = ({
           onMouseLeave={() => setIsHover(false)}
         >
           {email}
-          {isHover && <p className="emailHover">{email}</p>}
+          {isHover && (
+            <p className="emailHover">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                {email}
+              </a>
+            </p>
+          )}
         </td>
         <td className="phoneNumber">{phNo}</td>
         <td className="country">{country}</td>
