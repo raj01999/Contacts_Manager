@@ -144,7 +144,7 @@ const AllContact = () => {
               <th className="designation">Designation</th>
               <th className="company">Company</th>
               <th className="industry">Industry</th>
-              <th className="email">Email</th>
+              <th className="emailHead">Email</th>
               <th className="phoneNumber">Phone Number</th>
               <th className="country">Country</th>
               <th className="action">Action</th>
