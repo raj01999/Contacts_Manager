@@ -85,7 +85,9 @@ router.post("/user/signin", async (req, res) => {
       });
     }
 
-    var token = jwt.sign({ ...logUser[0] }, process.env.SECRET_KEY);
+    const token = jwt.sign({ ...logUser[0] }, process.env.SECRET_KEY, {
+      expiresIn: "1h",
+    });
 
     res.status(200).json({
       status: "sucess",
