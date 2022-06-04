@@ -84,6 +84,21 @@ const AllContact = () => {
     console.log(response);
   };
 
+  const download = async () => {
+    const jsonResponse = await fetch(process.env.REACT_APP_API + "/download", {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: state.user.token,
+      },
+    });
+    const response = await jsonResponse.json();
+    if (response.status == "sucess") {
+      window.location.href = response.link;
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="mainpage">
       <section className="hero">
@@ -111,7 +126,12 @@ const AllContact = () => {
               }}
             />
 
-            <motion.img whileTap={{ scale: 0.75 }} src={exportP} alt="export" />
+            <motion.img
+              whileTap={{ scale: 0.75 }}
+              src={exportP}
+              alt="export"
+              onClick={download}
+            />
           </div>
         </div>
 

@@ -114,4 +114,41 @@ router.post(
   }
 );
 
+router.get("/download", authenticateToken, async (req, res) => {
+  try {
+    const contacts = await Contact.find({ user: req.user._id });
+    const location = path.join(__dirname, "../../multer/uploads/contact.csv");
+    fs.writeFileSync(
+      location,
+      "name,designation,company,industry,email,phNo,country\n"
+    );
+    contacts.forEach((obj, idx) => {
+      if (idx === contacts.length - 1) {
+        return fs.appendFileSync(
+          location,
+          `${obj.name},${obj.designation},${obj.company},${obj.industry},${obj.email},${obj.phNo},${obj.country}`
+        );
+      }
+      fs.appendFileSync(
+        location,
+        `${obj.name},${obj.designation},${obj.company},${obj.industry},${obj.email},${obj.phNo},${obj.country}\n`
+      );
+    });
+    res.json({
+      status: "sucess",
+      link: "http://localhost:8000/api/Contacts",
+    });
+  } catch (e) {
+    res.status(500).json({
+      status: "failed",
+      message: e.message,
+    });
+  }
+});
+
+router.get("/Contacts", (req, res) => {
+  const location = path.join(__dirname, "../../multer/uploads/contact.csv");
+  res.sendFile(location);
+});
+
 module.exports = router;
