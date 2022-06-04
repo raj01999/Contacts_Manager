@@ -92,7 +92,7 @@ const AllContact = () => {
       },
     });
     const response = await jsonResponse.json();
-    if (response.status == "sucess") {
+    if (response.status === "sucess") {
       window.location.href = response.link;
     } else {
       navigate("/");
@@ -111,6 +111,8 @@ const AllContact = () => {
               src={deleteP}
               alt="delete"
               onClick={() => {
+                if (Object.keys(state.mark).length === 0)
+                  return window.alert("Select some contact first");
                 setConf(!conf);
                 setIsPop(false);
               }}
