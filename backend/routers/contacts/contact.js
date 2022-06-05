@@ -114,14 +114,21 @@ router.post(
   }
 );
 
-router.get("/download", authenticateToken, async (req, res) => {
+router.post("/download", authenticateToken, async (req, res) => {
   try {
-    const contacts = await Contact.find({ user: req.user._id });
     const location = path.join(__dirname, "../../multer/uploads/contact.csv");
     fs.writeFileSync(
       location,
       "name,designation,company,industry,email,phNo,country\n"
     );
+
+    const contacts = [];
+
+    for (key in req.body) {
+      const obj = await Contact.findById(key);
+      contacts.push(obj);
+    }
+
     contacts.forEach((obj, idx) => {
       if (idx === contacts.length - 1) {
         return fs.appendFileSync(

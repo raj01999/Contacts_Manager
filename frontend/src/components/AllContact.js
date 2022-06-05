@@ -85,11 +85,15 @@ const AllContact = () => {
   };
 
   const download = async () => {
+    if (Object.keys(state.mark).length === 0)
+      return window.alert("Please Select some contact first");
     const jsonResponse = await fetch(process.env.REACT_APP_API + "/download", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: state.user.token,
       },
+      body: JSON.stringify(state.mark),
     });
     const response = await jsonResponse.json();
     if (response.status === "sucess") {
