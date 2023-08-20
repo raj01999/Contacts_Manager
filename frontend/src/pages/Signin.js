@@ -84,7 +84,7 @@ const Signin = () => {
           </div>
           <input
             type="email"
-            placeholder="User Id"
+            placeholder="Email"
             id="log_email"
             className="inputauth"
             required

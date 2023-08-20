@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
 import dot from "../utils/dot.svg";
 import bigCircleL from "../utils/bigCircleL.svg";
@@ -70,7 +70,7 @@ const Signup = () => {
           <div className="detail">Create New Account</div>
           <input
             type="email"
-            placeholder="User Id"
+            placeholder="Email"
             id="reg_email"
             className="inputauth"
             required
@@ -104,6 +104,9 @@ const Signup = () => {
           >
             Sign Up
           </motion.button>
+          <Link to="/signin" className="linkLogin">
+            Sign in
+          </Link>
         </form>
 
         <img src={dot} alt="dotRight" className="dotRight" />

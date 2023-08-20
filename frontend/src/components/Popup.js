@@ -1,10 +1,20 @@
 import React from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useStateValue } from "../context/StateProvider";
+import { useState } from "react";
+import Alert from "./Alert";
 
 const Popup = ({ fetchData, setIsPop, setSuccessUp }) => {
   // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
+  const [msg, setMsg] = useState(null);
+
+  const onTypeError = async ()=>{
+    setMsg("Please upload only CSV file");
+    setTimeout(() => {
+      setMsg(null);
+    }, 2500);
+  }
 
   const handleChange = async (file) => {
     const formData = new FormData();
@@ -29,9 +39,11 @@ const Popup = ({ fetchData, setIsPop, setSuccessUp }) => {
     console.log(response);
   };
   return (
+    <>    {msg ? <Alert msg={msg} /> : ""}
     <div className="popup">
-      <FileUploader handleChange={handleChange} name="file" types={["CSV"]} />
+      <FileUploader onTypeError = {onTypeError} handleChange={handleChange} name="file" types={["CSV"]} />
     </div>
+    </>
   );
 };
 
